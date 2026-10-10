@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primera página</title>
+    <style>
+        body {
+            background-color: #111827;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+        button {
+            background-color: #6366f1;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>¡Hola, mundo! 🚀</h1>
+    <p>Esta es mi primera página web.</p>
+    <button onclick="cambiarColor()">Cambiar color</button>
+    <script>
+        function cambiarColor() {
+            document.body.style.backgroundColor =
+                "#" + Math.floor(Math.random() * 16777215)
+                .toString(16).padStart(6, "0");
+        }
+    </script>
+</body>
+</html>
