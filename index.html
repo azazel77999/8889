@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -119,11 +120,7 @@
     </main>
 
     <!-- Audio del gatito -->
-    <audio
-        id="sonidoGato"
-        preload="auto"
-        src="mixkit-sweet-kitty-meow-93.wav">
-    </audio>
+    <audio id="sonidoGato" preload="auto"></audio>
 
     <script>
         function cambiarColor() {
@@ -168,14 +165,13 @@
                 "#fffbeb", "#f5f5dc", "#ffe4b5"
             ];
 
-            const colorActual =
-                document.body.style.backgroundColor;
-
+            const colorActual = document.body.style.backgroundColor;
             let nuevoColor;
 
             do {
-                nuevoColor =
-                    colores[Math.floor(Math.random() * colores.length)];
+                nuevoColor = colores[
+                    Math.floor(Math.random() * colores.length)
+                ];
             } while (
                 colores.length > 1 &&
                 nuevoColor === colorActual
@@ -187,16 +183,36 @@
         function otroAnimal() {
             cambiarColor();
 
-            // Reproducir el maullido cada vez que se pulsa
+            // Lista de los seis maullidos
+            const maullidos = [
+                "mixkit-sweet-kitty-meow-93.wav",
+                "dragon-studio-meow-sfx-405456.mp3",
+                "mixkit-domestic-cat-hungry-meow-45.wav",
+                "mixkit-little-cat-attention-meow-86.wav",
+                "mixkit-cartoon-little-cat-meow-91.wav",
+                "mixkit-angry-cartoon-kitty-meow-94.wav"
+            ];
+
+            // Elegir un maullido aleatorio
             const sonido = document.getElementById("sonidoGato");
 
+            const aleatorio = Math.floor(
+                Math.random() * maullidos.length
+            );
+
+            sonido.pause();
+            sonido.src = maullidos[aleatorio];
             sonido.currentTime = 0;
+
             sonido.play().catch(error => {
-                console.log("No se pudo reproducir el maullido:", error);
+                console.log(
+                    "No se pudo reproducir el maullido:",
+                    error
+                );
             });
 
-            const imagenGato =
-                document.getElementById("imagenGato");
+            // Cambiar la imagen del gatito
+            const imagenGato = document.getElementById("imagenGato");
 
             imagenGato.onerror = function () {
                 this.onerror = null;
