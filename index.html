@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatitos y Perritos</title>
+    <title>Gatitos pendejos</title>
 
     <style>
         * {
@@ -13,120 +12,78 @@
 
         body {
             margin: 0;
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #fce7f3;
-            color: #333;
+            padding: 20px;
+            font-family: Arial, sans-serif;
             text-align: center;
-            transition: background-color 0.4s ease;
+            background-color: #fce7f3;
+            transition: background-color 0.5s ease;
         }
 
         header {
-            padding: 30px 15px 20px;
+            margin-bottom: 25px;
         }
 
         h1 {
-            margin: 0 0 10px;
-            font-size: 2rem;
+            color: #333;
+            font-size: 32px;
         }
 
         header p {
-            margin: 0;
-            font-size: 1.1rem;
+            font-size: 18px;
+            color: #444;
         }
 
-        nav {
+        .contenedor {
             display: flex;
             justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin: 10px 15px 25px;
-        }
-
-        .pestana {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 12px;
-            background-color: white;
-            color: #333;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 3px 8px #00000015;
-        }
-
-        .pestana.activa {
-            background-color: #a855f7;
-            color: white;
-        }
-
-        main {
-            width: 100%;
-            max-width: 650px;
-            margin: 0 auto;
-            padding: 0 18px 35px;
-        }
-
-        .seccion {
-            display: none;
-        }
-
-        .seccion.activa {
-            display: block;
+            gap: 20px;
+            margin-top: 25px;
         }
 
         .tarjeta {
-            padding: 22px;
             background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 6px 18px #00000015;
+            padding: 20px;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .tarjeta h2 {
-            margin-top: 0;
+            color: #333;
+            margin-bottom: 15px;
         }
 
-        .animal {
-            display: block;
+        .tarjeta img {
             width: 100%;
-            max-width: 400px;
-            height: 400px;
-            margin: 15px auto 20px;
+            height: 300px;
             object-fit: cover;
-            border-radius: 16px;
+            border-radius: 12px;
             background-color: #f3f4f6;
         }
 
-        .boton-animal {
-            padding: 13px 24px;
-            border: none;
-            border-radius: 12px;
+        button {
             background-color: #a855f7;
             color: white;
+            border: none;
+            padding: 12px 22px;
+            margin-top: 15px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
+            transition: transform 0.2s, background-color 0.2s;
         }
 
-        .boton-animal:hover {
-            opacity: 0.9;
-            transform: scale(1.03);
+        button:hover {
+            background-color: #9333ea;
+            transform: scale(1.04);
         }
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.7rem;
-            }
-
-            .animal {
-                height: auto;
-                aspect-ratio: 1 / 1;
-            }
-
-            .tarjeta {
-                padding: 16px;
-            }
+        button:active {
+            transform: scale(0.97);
         }
     </style>
 </head>
@@ -134,61 +91,24 @@
 <body>
 
     <header>
-        <h1>Gatitos y perritos pendejos</h1>
+        <h1>Gatitos pendejos</h1>
         <p>Bienvenido we</p>
     </header>
 
-    <nav>
-        <button
-            class="pestana activa"
-            id="pestanaGatitos"
-            onclick="mostrarSeccion('gatos')">
-            Gatitos
-        </button>
+    <main class="contenedor">
+        <section class="tarjeta" id="seccionGatos">
+            <h2>Gatitos pendejos 🐱</h2>
 
-        <button
-            class="pestana"
-            id="pestanaPerritos"
-            onclick="mostrarSeccion('perros')">
-            Perritos
-        </button>
-    </nav>
+            <img
+                id="imagenGato"
+                src="https://cataas.com/cat/kitten?width=400&height=400"
+                alt="Foto de un gatito"
+                onerror="this.onerror=null; this.src='https://cataas.com/cat?width=400&height=400&v=' + Date.now();"
+            >
 
-    <main>
-        <section class="seccion activa" id="seccionGatos">
-            <div class="tarjeta">
-                <h2>Gatitos pendejos 🐱</h2>
-
-                <img
-                    id="imagenGato"
-                    class="animal"
-                    src="https://cataas.com/cat/kitten?width=400&height=400"
-                    alt="Gatito pequeño">
-
-                <button
-                    class="boton-animal"
-                    onclick="otroAnimal('gato')">
-                    Otro gatito
-                </button>
-            </div>
-        </section>
-
-        <section class="seccion" id="seccionPerros">
-            <div class="tarjeta">
-                <h2>Perritos pendejos🐶</h2>
-
-                <img
-                    id="imagenPerro"
-                    class="animal"
-                    src="https://loremflickr.com/400/400/puppy?lock=1"
-                    alt="Perrito cachorro">
-
-                <button
-                    class="boton-animal"
-                    onclick="otroAnimal('perro')">
-                    Otro perrito
-                </button>
-            </div>
+            <button onclick="otroAnimal()">
+                Otro gatito
+            </button>
         </section>
     </main>
 
@@ -196,93 +116,43 @@
         function cambiarColor() {
             const colores = [
                 // Rosas y rojos
-                "#fce7f3",
-                "#ffe4e6",
-                "#fecdd3",
-                "#fb7185",
-                "#f43f5e",
-                "#dc2626",
-                "#991b1b",
+                "#fce7f3", "#ffe4e6", "#fecdd3", "#fb7185",
+                "#f43f5e", "#dc2626", "#991b1b",
 
                 // Morados y violetas
-                "#f3e8ff",
-                "#e9d5ff",
-                "#c084fc",
-                "#a855f7",
-                "#7e22ce",
-                "#6d28d9",
-                "#4c1d95",
+                "#f3e8ff", "#e9d5ff", "#c084fc", "#a855f7",
+                "#7e22ce", "#6d28d9", "#4c1d95",
 
                 // Azules
-                "#dbeafe",
-                "#bfdbfe",
-                "#93c5fd",
-                "#60a5fa",
-                "#2563eb",
-                "#1d4ed8",
-                "#1e3a8a",
+                "#dbeafe", "#bfdbfe", "#93c5fd", "#60a5fa",
+                "#2563eb", "#1d4ed8", "#1e3a8a",
 
                 // Cian y turquesa
-                "#cffafe",
-                "#a5f3fc",
-                "#67e8f9",
-                "#22d3ee",
-                "#0891b2",
-                "#0f766e",
+                "#cffafe", "#a5f3fc", "#67e8f9",
+                "#22d3ee", "#0891b2", "#0f766e",
 
                 // Verdes
-                "#dcfce7",
-                "#bbf7d0",
-                "#86efac",
-                "#4ade80",
-                "#16a34a",
-                "#15803d",
-                "#14532d",
+                "#dcfce7", "#bbf7d0", "#86efac", "#4ade80",
+                "#16a34a", "#15803d", "#14532d",
 
                 // Amarillos y dorados
-                "#fef9c3",
-                "#fef08a",
-                "#fde047",
-                "#facc15",
-                "#eab308",
-                "#ca8a04",
+                "#fef9c3", "#fef08a", "#fde047",
+                "#facc15", "#eab308", "#ca8a04",
 
                 // Naranjas
-                "#ffedd5",
-                "#fed7aa",
-                "#fdba74",
-                "#fb923c",
-                "#f97316",
-                "#ea580c",
-                "#9a3412",
+                "#ffedd5", "#fed7aa", "#fdba74", "#fb923c",
+                "#f97316", "#ea580c", "#9a3412",
 
                 // Tonos neutros y especiales
-                "#ffffff",
-                "#f3f4f6",
-                "#d1d5db",
-                "#9ca3af",
-                "#64748b",
-                "#334155",
-                "#1e293b",
-                "#18181b",
+                "#ffffff", "#f3f4f6", "#d1d5db", "#9ca3af",
+                "#64748b", "#334155", "#1e293b", "#18181b",
                 "#000000",
 
                 // Colores adicionales
-                "#f0fdf4",
-                "#ecfccb",
-                "#d9f99d",
-                "#a3e635",
-                "#84cc16",
-                "#365314",
-                "#fae8ff",
-                "#f5d0fe",
-                "#e879f9",
-                "#d946ef",
-                "#86198f",
-                "#fff7ed",
-                "#fffbeb",
-                "#f5f5dc",
-                "#ffe4b5"
+                "#f0fdf4", "#ecfccb", "#d9f99d", "#a3e635",
+                "#84cc16", "#365314", "#fae8ff", "#f5d0fe",
+                "#e879f9", "#d946ef", "#86198f", "#fff7ed",
+                "#fffbeb", "#f5f5dc", "#ffe4b5"
             ];
 
             const colorActual = document.body.style.backgroundColor;
@@ -299,43 +169,21 @@
             document.body.style.backgroundColor = nuevoColor;
         }
 
-        function mostrarSeccion(tipo) {
+        function otroAnimal() {
             cambiarColor();
 
-            const esGato = tipo === "gatos";
+            const imagenGato = document.getElementById("imagenGato");
 
-            document.getElementById("seccionGatos")
-                .classList.toggle("activa", esGato);
+            imagenGato.onerror = function () {
+                this.onerror = null;
+                this.src =
+                    "https://cataas.com/cat?width=400&height=400&v=" +
+                    Date.now();
+            };
 
-            document.getElementById("seccionPerros")
-                .classList.toggle("activa", !esGato);
-
-            document.getElementById("pestanaGatitos")
-                .classList.toggle("activa", esGato);
-
-            document.getElementById("pestanaPerritos")
-                .classList.toggle("activa", !esGato);
-        }
-
-        function otroAnimal(tipo) {
-            cambiarColor();
-
-            if (tipo === "gato") {
-                const imagenGato =
-                    document.getElementById("imagenGato");
-
-                imagenGato.src =
-                    "https://cataas.com/cat/kitten?width=400&height=400&v="
-                    + Date.now();
-
-            } else {
-                const imagenPerro =
-                    document.getElementById("imagenPerro");
-
-                imagenPerro.src =
-                    "https://loremflickr.com/400/400/puppy?lock="
-                    + Date.now();
-            }
+            imagenGato.src =
+                "https://cataas.com/cat?width=400&height=400&v=" +
+                Date.now();
         }
 
         cambiarColor();
