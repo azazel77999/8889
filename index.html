@@ -89,10 +89,6 @@
             cursor: pointer;
         }
 
-        #perritos .boton {
-            background: #e58b45;
-        }
-
         footer {
             padding: 20px;
             color: #aaa;
@@ -102,123 +98,121 @@
 
 <body>
 
-    <header>
-        <h1>Qué rollo cabrones</h1>
-        <p>Bienvenidos</p>
-    </header>
+<header>
+    <h1>Qué rollo cabrones</h1>
+    <p>Bienvenidos</p>
+</header>
 
-    <nav>
-        <button class="activo" onclick="mostrar('gatitos', this)">
-            Gatitos
-        </button>
+<nav>
+    <button class="activo" onclick="mostrar('gatitos', this)">
+        Gatitos
+    </button>
 
-        <button onclick="mostrar('perritos', this)">
-            Perritos
-        </button>
-    </nav>
+    <button onclick="mostrar('perritos', this)">
+        Perritos
+    </button>
+</nav>
 
-    <main>
+<main>
 
-        <section id="gatitos" class="apartado activo">
-            <h2>Gatitos pendejos</h2>
-            <p>Míralos we</p>
+    <section id="gatitos" class="apartado activo">
+        <h2>Gatitos pendejos</h2>
+        <p>Miralos we</p>
 
-            <div class="tarjeta">
-                <img
-                    id="imagenGato"
-                    class="animal"
-                    src="https://cataas.com/cat?width=400&height=400"
-                    alt="Gatito"
-                >
+        <div class="tarjeta">
+            <img
+                id="imagenGato"
+                class="animal"
+                src="https://loremflickr.com/400/400/kitten"
+                alt="Gatito pequeño"
+            >
 
-                <button class="boton" onclick="otroAnimal('gato')">
-                    Otro gatito
-                </button>
-            </div>
-        </section>
+            <button class="boton" onclick="otroAnimal('gato')">
+                Otro gatito
+            </button>
+        </div>
+    </section>
 
-        <section id="perritos" class="apartado">
-            <h2>Perritos pendejos</h2>
-            <p>Míralos we</p>
+    <section id="perritos" class="apartado">
+        <h2>Perritos pendejos</h2>
+        <p>Miralos we</p>
 
-            <div class="tarjeta">
-                <img
-                    id="imagenPerro"
-                    class="animal"
-                    src="https://placedog.net/400/400"
-                    alt="Perrito"
-                >
+        <div class="tarjeta">
+            <img
+                id="imagenPerro"
+                class="animal"
+                src="https://loremflickr.com/400/400/puppy"
+                alt="Perrito pequeño"
+            >
 
-                <button class="boton" onclick="otroAnimal('perro')">
-                    Otro perrito
-                </button>
-            </div>
-        </section>
+            <button class="boton" onclick="otroAnimal('perro')">
+                Otro perrito
+            </button>
+        </div>
+    </section>
 
-    </main>
+</main>
 
-    <footer>
-        Hecho para los amantes de los animales.
-    </footer>
+<footer>
+    Hecho para los amantes de los animales.
+</footer>
 
-    <script>
-        const colores = [
-            "#121212",
-            "#1a237e",
-            "#004d40",
-            "#4a148c",
-            "#7f1d1d",
-            "#263238",
-            "#880e4f",
-            "#3e2723",
-            "#0d47a1",
-            "#5d4037"
-        ];
+<script>
+    const colores = [
+        "#121212",
+        "#1a237e",
+        "#004d40",
+        "#4a148c",
+        "#7f1d1d",
+        "#263238",
+        "#880e4f",
+        "#3e2723",
+        "#0d47a1",
+        "#5d4037"
+    ];
 
-        let ultimoColor = 0;
+    let ultimoColor = 0;
 
-        function mostrar(id, boton) {
-            document.querySelectorAll(".apartado").forEach(seccion => {
-                seccion.classList.remove("activo");
-            });
+    function mostrar(id, boton) {
+        document.querySelectorAll(".apartado").forEach(seccion => {
+            seccion.classList.remove("activo");
+        });
 
-            document.getElementById(id).classList.add("activo");
+        document.getElementById(id).classList.add("activo");
 
-            document.querySelectorAll("nav button").forEach(b => {
-                b.classList.remove("activo");
-            });
+        document.querySelectorAll("nav button").forEach(b => {
+            b.classList.remove("activo");
+        });
 
-            boton.classList.add("activo");
+        boton.classList.add("activo");
 
-            cambiarColor();
-            window.scrollTo(0, 0);
+        cambiarColor();
+        window.scrollTo(0, 0);
+    }
+
+    function cambiarColor() {
+        let nuevoColor;
+
+        do {
+            nuevoColor = Math.floor(Math.random() * colores.length);
+        } while (nuevoColor === ultimoColor);
+
+        document.body.style.backgroundColor = colores[nuevoColor];
+        ultimoColor = nuevoColor;
+    }
+
+    function otroAnimal(tipo) {
+        cambiarColor();
+
+        if (tipo === "gato") {
+            document.getElementById("imagenGato").src =
+                "https://loremflickr.com/400/400/kitten?random=" + Date.now();
+        } else {
+            document.getElementById("imagenPerro").src =
+                "https://loremflickr.com/400/400/puppy?random=" + Date.now();
         }
-
-        function cambiarColor() {
-            let nuevoColor;
-
-            do {
-                nuevoColor = Math.floor(Math.random() * colores.length);
-            } while (nuevoColor === ultimoColor);
-
-            document.body.style.backgroundColor = colores[nuevoColor];
-            ultimoColor = nuevoColor;
-        }
-
-        function otroAnimal(tipo) {
-            cambiarColor();
-
-            if (tipo === "gato") {
-                document.getElementById("imagenGato").src =
-                    "https://cataas.com/cat?width=400&height=400&v="
-                    + Date.now();
-            } else {
-                document.getElementById("imagenPerro").src =
-                    "https://placedog.net/400/400?random="
-                    + Date.now();
-            }
-        }
-    </script>
+    }
+</script>
 
 </body>
 </html>
