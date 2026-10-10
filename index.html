@@ -89,6 +89,10 @@
             cursor: pointer;
         }
 
+        .boton:hover {
+            background: #9333ea;
+        }
+
         footer {
             padding: 20px;
             color: #aaa;
@@ -98,121 +102,138 @@
 
 <body>
 
-<header>
-    <h1>Qué rollo cabrones</h1>
-    <p>Bienvenidos</p>
-</header>
+    <header> 
+        <h1>Gatitos y perritos pendejos</h1>
+        <p>Bienvenido we</p>
+    </header>
 
-<nav>
-    <button class="activo" onclick="mostrar('gatitos', this)">
-        Gatitos
-    </button>
+    <nav>
+        <button class="activo" onclick="mostrar('gatitos', this)">
+            Gatitos
+        </button>
 
-    <button onclick="mostrar('perritos', this)">
-        Perritos
-    </button>
-</nav>
+        <button onclick="mostrar('perritos', this)">
+            Perritos
+        </button>
+    </nav>
 
-<main>
+    <main>
+        <section id="gatitos" class="apartado activo">
+            <h2>Gatitos pendejos</h2>
+            <p>Miralos we</p>
 
-    <section id="gatitos" class="apartado activo">
-        <h2>Gatitos pendejos</h2>
-        <p>Miralos we</p>
+            <div class="tarjeta">
+                <img
+                    id="imagenGato"
+                    class="animal"
+                    src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&h=400&q=80"
+                    alt="Gatito"
+                >
 
-        <div class="tarjeta">
-            <img
-                id="imagenGato"
-                class="animal"
-                src="https://loremflickr.com/400/400/kitten"
-                alt="Gatito pequeño"
-            >
+                <button class="boton" onclick="otroAnimal('gato')">
+                    Otro gatito
+                </button>
+            </div>
+        </section>
 
-            <button class="boton" onclick="otroAnimal('gato')">
-                Otro gatito
-            </button>
-        </div>
-    </section>
+        <section id="perritos" class="apartado">
+            <h2>Perritos pendejos</h2>
+            <p>Míralos we</p>
 
-    <section id="perritos" class="apartado">
-        <h2>Perritos pendejos</h2>
-        <p>Miralos we</p>
+            <div class="tarjeta">
+                <img
+                    id="imagenPerro"
+                    class="animal"
+                    src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=400&h=400&q=80"
+                    alt="Perrito"
+                >
 
-        <div class="tarjeta">
-            <img
-                id="imagenPerro"
-                class="animal"
-                src="https://loremflickr.com/400/400/puppy"
-                alt="Perrito pequeño"
-            >
+                <button class="boton" onclick="otroAnimal('perro')">
+                    Otro perrito
+                </button>
+            </div>
+        </section>
+    </main>
 
-            <button class="boton" onclick="otroAnimal('perro')">
-                Otro perrito
-            </button>
-        </div>
-    </section>
+    <footer>
+        Hecho para los amantes de los animales.
+    </footer>
 
-</main>
+    <script>
+        const colores = [
+            "#121212",
+            "#1a237e",
+            "#004d40",
+            "#4a148c",
+            "#7f1d1d",
+            "#263238",
+            "#880e4f",
+            "#3e2723",
+            "#0d47a1",
+            "#5d4037"
+        ];
 
-<footer>
-    Hecho para los amantes de los animales.
-</footer>
+        const gatitos = [
+            "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&h=400&q=80",
+            "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=400&h=400&q=80",
+            "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=400&h=400&q=80"
+        ];
 
-<script>
-    const colores = [
-        "#121212",
-        "#1a237e",
-        "#004d40",
-        "#4a148c",
-        "#7f1d1d",
-        "#263238",
-        "#880e4f",
-        "#3e2723",
-        "#0d47a1",
-        "#5d4037"
-    ];
+        const perritos = [
+            "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=400&h=400&q=80",
+            "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=400&h=400&q=80",
+            "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=400&h=400&q=80"
+        ];
 
-    let ultimoColor = 0;
+        let ultimoColor = 0;
 
-    function mostrar(id, boton) {
-        document.querySelectorAll(".apartado").forEach(seccion => {
-            seccion.classList.remove("activo");
-        });
+        function mostrar(id, boton) {
+            document.querySelectorAll(".apartado").forEach(seccion => {
+                seccion.classList.remove("activo");
+            });
 
-        document.getElementById(id).classList.add("activo");
+            document.getElementById(id).classList.add("activo");
 
-        document.querySelectorAll("nav button").forEach(b => {
-            b.classList.remove("activo");
-        });
+            document.querySelectorAll("nav button").forEach(b => {
+                b.classList.remove("activo");
+            });
 
-        boton.classList.add("activo");
+            boton.classList.add("activo");
 
-        cambiarColor();
-        window.scrollTo(0, 0);
-    }
-
-    function cambiarColor() {
-        let nuevoColor;
-
-        do {
-            nuevoColor = Math.floor(Math.random() * colores.length);
-        } while (nuevoColor === ultimoColor);
-
-        document.body.style.backgroundColor = colores[nuevoColor];
-        ultimoColor = nuevoColor;
-    }
-
-    function otroAnimal(tipo) {
-        cambiarColor();
-
-        if (tipo === "gato") {
-            document.getElementById("imagenGato").src =
-                "https://loremflickr.com/400/400/kitten?random=" + Date.now();
-        } else {
-            document.getElementById("imagenPerro").src =
-                "https://loremflickr.com/400/400/puppy?random=" + Date.now();
+            cambiarColor();
+            window.scrollTo(0, 0);
         }
-    }
-</script>
+
+        function cambiarColor() {
+            let nuevoColor;
+
+            do {
+                nuevoColor = Math.floor(Math.random() * colores.length);
+            } while (nuevoColor === ultimoColor);
+
+            document.body.style.backgroundColor = colores[nuevoColor];
+            ultimoColor = nuevoColor;
+        }
+
+        function otroAnimal(tipo) {
+            cambiarColor();
+
+            const esGato = tipo === "gato";
+            const lista = esGato ? gatitos : perritos;
+            const imagen = document.getElementById(
+                esGato ? "imagenGato" : "imagenPerro"
+            );
+
+            const actual = imagen.src;
+            const disponibles = lista.filter(url => url !== actual);
+
+            const nueva = disponibles[
+                Math.floor(Math.random() * disponibles.length)
+            ];
+
+            imagen.src = nueva;
+        }
+    </script>
 
 </body>
 </html>
