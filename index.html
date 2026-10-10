@@ -118,6 +118,13 @@
         </section>
     </main>
 
+    <!-- Audio del gatito -->
+    <audio
+        id="sonidoGato"
+        preload="auto"
+        src="mixkit-sweet-kitty-meow-93.wav">
+    </audio>
+
     <script>
         function cambiarColor() {
             const colores = [
@@ -179,6 +186,14 @@
 
         function otroAnimal() {
             cambiarColor();
+
+            // Reproducir el maullido cada vez que se pulsa
+            const sonido = document.getElementById("sonidoGato");
+
+            sonido.currentTime = 0;
+            sonido.play().catch(error => {
+                console.log("No se pudo reproducir el maullido:", error);
+            });
 
             const imagenGato =
                 document.getElementById("imagenGato");
