@@ -1,37 +1,113 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>el comienzo</title>
+
+    <title>Mi página de gatitos</title>
+
     <style>
         body {
-            background-color: #111827;
+            background-color: #121212;
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding-top: 100px;
+            padding: 40px 20px;
+            transition: background-color 0.4s ease;
         }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        p {
+            color: #cccccc;
+            font-size: 1.1rem;
+        }
+
+        #gatito {
+            width: 280px;
+            height: 280px;
+            max-width: 90%;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-top: 20px;
+            box-shadow: 0 8px 25px #00000066;
+            background-color: #252525;
+        }
+
         button {
-            background-color: #6366f1;
+            display: block;
+            margin: 25px auto;
+            background-color: #a855f7;
             color: white;
             border: none;
-            padding: 15px 25px;
-            border-radius: 10px;
+            padding: 14px 24px;
+            border-radius: 12px;
             font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
         }
     </style>
 </head>
+
 <body>
-    <h1> que rollo cabrones 😛</h1>
-    <p>Esta es mi primera página web.</p>
-    <button onclick="cambiarColor()">Cambiar color</button>
+
+    <h1>¡Qué rollo, cabrones!</h1>
+
+    <p>Bienvenidos</p>
+
+    <img
+        id="gatito"
+        src="https://cataas.com/cat/kitten?width=400&height=400"
+        alt="Un gatito pequeño"
+    >
+
+    <button onclick="cambiarTodo()">
+        ¡Otro gatito!
+    </button>
+
     <script>
-        function cambiarColor() {
-            document.body.style.backgroundColor =
-                "#" + Math.floor(Math.random() * 16777215)
-                .toString(16).padStart(6, "0");
+        const colores = [
+            "#121212",
+            "#1a237e",
+            "#004d40",
+            "#4a148c",
+            "#7f1d1d",
+            "#263238",
+            "#880e4f",
+            "#3e2723",
+            "#0d47a1"
+        ];
+
+        let ultimoColor = "#121212";
+
+        function cambiarTodo() {
+            let nuevoColor;
+
+            do {
+                nuevoColor = colores[
+                    Math.floor(Math.random() * colores.length)
+                ];
+            } while (
+                nuevoColor === ultimoColor &&
+                colores.length > 1
+            );
+
+            document.body.style.backgroundColor = nuevoColor;
+            ultimoColor = nuevoColor;
+
+            const imagen = document.getElementById("gatito");
+
+            imagen.src =
+                "https://cataas.com/cat/kitten?width=400&height=400&v="
+                + Date.now();
         }
     </script>
+
 </body>
 </html>
