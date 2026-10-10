@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Gatitos y Perritos pendejos</title>
+    <title>Gatitos y Perritos</title>
 
     <style>
         * {
@@ -48,7 +47,7 @@
             padding: 12px 25px;
             border: none;
             border-radius: 12px;
-            background-color: #ffffff;
+            background-color: white;
             color: #333;
             font-size: 16px;
             font-weight: bold;
@@ -115,17 +114,6 @@
             transform: scale(1.03);
         }
 
-        .boton-animal:disabled {
-            opacity: 0.6;
-            cursor: wait;
-        }
-
-        .mensaje {
-            min-height: 20px;
-            margin: 12px 0 0;
-            font-size: 14px;
-        }
-
         @media (max-width: 480px) {
             h1 {
                 font-size: 1.7rem;
@@ -167,7 +155,6 @@
     </nav>
 
     <main>
-
         <section class="seccion activa" id="seccionGatos">
             <div class="tarjeta">
                 <h2>Gatitos pendejos 🐱</h2>
@@ -176,46 +163,36 @@
                     id="imagenGato"
                     class="animal"
                     src="https://cataas.com/cat/kitten?width=400&height=400"
-                    alt="Gatito pequeño"
-                    loading="eager">
+                    alt="Gatito pequeño">
 
                 <button
                     class="boton-animal"
-                    id="botonGato"
                     onclick="otroAnimal('gato')">
                     Otro gatito
                 </button>
-
-                <p class="mensaje" id="mensajeGato"></p>
             </div>
         </section>
 
         <section class="seccion" id="seccionPerros">
             <div class="tarjeta">
-                <h2>Perritos pendejos 🐶</h2>
+                <h2>Perritos pendejos🐶</h2>
 
                 <img
                     id="imagenPerro"
                     class="animal"
-                    src="https://api.sykes.pet/puppy/imgs/puppy149.jpg"
-                    alt="Perrito cachorro"
-                    loading="eager">
+                    src="https://api.sykes.pet/puppy/imgs/puppy191.jpg"
+                    alt="Perrito cachorro">
 
                 <button
                     class="boton-animal"
-                    id="botonPerro"
                     onclick="otroAnimal('perro')">
                     Otro perrito
                 </button>
-
-                <p class="mensaje" id="mensajePerro"></p>
             </div>
         </section>
-
     </main>
 
     <script>
-        // Colores aleatorios para el fondo.
         function cambiarColor() {
             const colores = [
                 "#fce7f3",
@@ -244,7 +221,6 @@
             document.body.style.backgroundColor = nuevoColor;
         }
 
-        // Cambiar entre las pestañas Gatitos y Perritos.
         function mostrarSeccion(tipo) {
             cambiarColor();
 
@@ -263,100 +239,62 @@
                 .classList.toggle("activa", !esGato);
         }
 
-        // Cargar otro gatito usando CATAAS.
-        function otroGatito() {
-            const imagen = document.getElementById("imagenGato");
-            const mensaje = document.getElementById("mensajeGato");
-            const boton = document.getElementById("botonGato");
-
+        function otroAnimal(tipo) {
             cambiarColor();
-            boton.disabled = true;
-            mensaje.textContent = "Buscando otro gatito...";
 
-            const nuevaImagen =
-                "https://cataas.com/cat/kitten?width=400&height=400&v="
-                + Date.now();
+            if (tipo === "gato") {
+                const imagenGato =
+                    document.getElementById("imagenGato");
 
-            imagen.onload = function () {
-                boton.disabled = false;
-                mensaje.textContent = "";
-            };
+                imagenGato.src =
+                    "https://cataas.com/cat/kitten?width=400&height=400&v="
+                    + Date.now();
 
-            imagen.onerror = function () {
-                boton.disabled = false;
-                mensaje.textContent =
-                    "No se pudo cargar la imagen. Intenta otra vez.";
-            };
-
-            imagen.src = nuevaImagen;
+            } else {
+                cargarOtroCachorro();
+            }
         }
 
-        // Cargar otro cachorro desde el servicio de Sykes.pet.
-        async function otroPerrito() {
-            const imagen = document.getElementById("imagenPerro");
-            const mensaje = document.getElementById("mensajePerro");
-            const boton = document.getElementById("botonPerro");
-
-            cambiarColor();
-            boton.disabled = true;
-            mensaje.textContent = "Buscando otro cachorrito...";
+        async function cargarOtroCachorro() {
+            const imagenPerro =
+                document.getElementById("imagenPerro");
 
             try {
                 const respuesta = await fetch(
-                    "https://api.sykes.pet/puppy?v=" + Date.now(),
+                    "https://api.sykes.pet/api/puppy?v=" + Date.now(),
                     { cache: "no-store" }
                 );
 
                 if (!respuesta.ok) {
-                    throw new Error("No se pudo consultar el servicio");
+                    throw new Error("No se pudo obtener la imagen");
                 }
 
                 const datos = await respuesta.json();
 
                 const url =
-                    datos?.data?.puppy ||
-                    datos?.puppy ||
-                    datos?.url;
+                    datos.image ||
+                    datos.data?.image;
 
                 if (!url) {
-                    throw new Error("No se encontró una imagen");
+                    throw new Error("La respuesta no contiene una imagen");
                 }
 
-                // Confirmar que la imagen nueva cargó antes de reemplazar
-                // la que ya se está mostrando.
-                const prueba = new Image();
+                // La imagen cambia cuando termina de cargarse.
+                // No se muestra ningún mensaje de espera.
+                const nuevaImagen = new Image();
 
-                prueba.onload = function () {
-                    imagen.src = url;
-                    boton.disabled = false;
-                    mensaje.textContent = "";
+                nuevaImagen.onload = function () {
+                    imagenPerro.src = nuevaImagen.src;
                 };
 
-                prueba.onerror = function () {
-                    boton.disabled = false;
-                    mensaje.textContent =
-                        "No se pudo cargar el cachorro. Intenta otra vez.";
-                };
-
-                prueba.src = url;
+                nuevaImagen.src = url;
 
             } catch (error) {
-                boton.disabled = false;
-                mensaje.textContent =
-                    "El servicio de cachorros no respondió. Intenta otra vez.";
+                // Si el servicio falla, no se borra la foto actual.
+                console.error("No se pudo cargar otro cachorro:", error);
             }
         }
 
-        // Función que usan los botones de cada animal.
-        function otroAnimal(tipo) {
-            if (tipo === "gato") {
-                otroGatito();
-            } else {
-                otroPerrito();
-            }
-        }
-
-        // Cambiar el fondo al cargar la página.
         cambiarColor();
     </script>
 
