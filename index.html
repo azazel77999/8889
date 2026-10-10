@@ -93,6 +93,11 @@
             background: #9333ea;
         }
 
+        .boton:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
         footer {
             padding: 20px;
             color: #aaa;
@@ -102,8 +107,8 @@
 
 <body>
 
-    <header> 
-        <h1>Gatitos y perritos pendejos</h1>
+    <header>
+        <h1>Gatitos y Perritos pendejos</h1>
         <p>Bienvenido we</p>
     </header>
 
@@ -126,11 +131,11 @@
                 <img
                     id="imagenGato"
                     class="animal"
-                    src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&h=400&q=80"
+                    src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=400&h=400&q=80"
                     alt="Gatito"
                 >
 
-                <button class="boton" onclick="otroAnimal('gato')">
+                <button class="boton" onclick="otroAnimal('gato', this)">
                     Otro gatito
                 </button>
             </div>
@@ -148,7 +153,7 @@
                     alt="Perrito"
                 >
 
-                <button class="boton" onclick="otroAnimal('perro')">
+                <button class="boton" onclick="otroAnimal('perro', this)">
                     Otro perrito
                 </button>
             </div>
@@ -173,19 +178,12 @@
             "#5d4037"
         ];
 
-        const gatitos = [
-            "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&h=400&q=80",
-            "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=400&h=400&q=80",
-            "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=400&h=400&q=80"
-        ];
-
-        const perritos = [
-            "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=400&h=400&q=80",
-            "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=400&h=400&q=80",
-            "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=400&h=400&q=80"
-        ];
-
         let ultimoColor = 0;
+
+        const imagenesUsadas = {
+            gato: new Set(),
+            perro: new Set()
+        };
 
         function mostrar(id, boton) {
             document.querySelectorAll(".apartado").forEach(seccion => {
@@ -199,7 +197,6 @@
             });
 
             boton.classList.add("activo");
-
             cambiarColor();
             window.scrollTo(0, 0);
         }
@@ -215,24 +212,107 @@
             ultimoColor = nuevoColor;
         }
 
-        function otroAnimal(tipo) {
+        async function otroAnimal(tipo, boton) {
             cambiarColor();
 
             const esGato = tipo === "gato";
-            const lista = esGato ? gatitos : perritos;
             const imagen = document.getElementById(
                 esGato ? "imagenGato" : "imagenPerro"
             );
 
-            const actual = imagen.src;
-            const disponibles = lista.filter(url => url !== actual);
+            const categoria = esGato
+                ? "Category:Kittens"
+                : "Category:Puppies";
 
-            const nueva = disponibles[
-                Math.floor(Math.random() * disponibles.length)
-            ];
+            boton.disabled = true;
 
-            imagen.src = nueva;
+            const textoOriginal = boton.textContent;
+            boton.textContent = "Buscando foto...";
+
+            try {
+                const url =
+                    "https://commons.wikimedia.org/w/api.php" +
+                    "?action=query" +
+                    "&generator=categorymembers" +
+                    "&gcmtitle=" + encodeURIComponent(categoria) +
+                    "&gcmtype=file" +
+                    "&gcmnamespace=6" +
+                    "&gcmlimit=100" +
+                    "&prop=imageinfo" +
+                    "&iiprop=url" +
+                    "&iiurlwidth=500" +
+                    "&format=json" +
+                    "&origin=*";
+
+                const respuesta = await fetch(url);
+
+                if (!respuesta.ok) {
+                    throw new Error("No se pudieron cargar las fotos");
+                }
+
+                const datos = await respuesta.json();
+                const paginas = Object.values(datos.query?.pages || {});
+
+                const fotos = paginas
+                    .filter(p => p.imageinfo && p.imageinfo[0])
+                    .map(p => ({
+                        titulo: p.title,
+                        url: p.imageinfo[0].thumburl ||
+                             p.imageinfo[0].url
+                    }))
+                    .filter(f => /\.(jpg|jpeg|png|webp|gif)$/i.test(f.url));
+
+                if (fotos.length === 0) {
+                    throw new Error("No se encontraron fotos");
+                }
+
+                let disponibles = fotos.filter(
+                    foto => !imagenesUsadas[tipo].has(foto.titulo)
+                );
+
+                if (disponibles.length === 0) {
+                    imagenesUsadas[tipo].clear();
+                    disponibles = fotos;
+                }
+
+                const foto =
+                    disponibles[Math.floor(Math.random() * disponibles.length)];
+
+                await new Promise((resolve, reject) => {
+                    const prueba = new Image();
+
+                    prueba.onload = () => resolve();
+                    prueba.onerror = () => reject(
+                        new Error("No se pudo abrir la foto")
+                    );
+
+                    prueba.src = foto.url;
+                });
+
+                imagen.src = foto.url;
+                imagen.alt = esGato ? "Gatito" : "Cachorro";
+                imagenesUsadas[tipo].add(foto.titulo);
+
+            } catch (error) {
+                alert(
+                    "No se pudieron cargar nuevas fotos. " +
+                    "Comprueba tu conexión e inténtalo otra vez."
+                );
+            } finally {
+                boton.disabled = false;
+                boton.textContent = textoOriginal;
+            }
         }
+
+        window.addEventListener("load", () => {
+            otroAnimal("gato", document.querySelector(
+                "#gatitos .boton"
+            ));
+
+            otroAnimal("perro", document.querySelector(
+                "#perritos .boton"
+            ));
+        });
     </script>
 
 </body>
