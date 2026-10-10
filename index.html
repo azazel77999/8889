@@ -180,7 +180,7 @@
                 <img
                     id="imagenPerro"
                     class="animal"
-                    src="https://api.sykes.pet/puppy/imgs/puppy285.jpg"
+                    src="https://loremflickr.com/400/400/puppy?lock=1"
                     alt="Perrito cachorro">
 
                 <button
@@ -329,57 +329,12 @@
                     + Date.now();
 
             } else {
-                cargarOtroCachorro();
-            }
-        }
+                const imagenPerro =
+                    document.getElementById("imagenPerro");
 
-        async function cargarOtroCachorro() {
-            const imagenPerro =
-                document.getElementById("imagenPerro");
-
-            try {
-                const respuesta = await fetch(
-                    "https://api.sykes.pet/puppy/?v=" + Date.now(),
-                    { cache: "no-store" }
-                );
-
-                if (!respuesta.ok) {
-                    throw new Error("No se pudo obtener el cachorro");
-                }
-
-                const datos = await respuesta.json();
-
-                const url =
-                    datos.puppy ||
-                    datos.data?.puppy ||
-                    datos.image ||
-                    datos.data?.image;
-
-                if (
-                    !url ||
-                    url === "No puppy data available" ||
-                    !url.startsWith("https://")
-                ) {
-                    throw new Error("No hay una imagen de cachorro disponible");
-                }
-
-                const nuevaImagen = new Image();
-
-                nuevaImagen.onload = function () {
-                    imagenPerro.src = nuevaImagen.src;
-                };
-
-                nuevaImagen.onerror = function () {
-                    console.error("No se pudo cargar la foto del cachorro");
-                };
-
-                nuevaImagen.src = url;
-
-            } catch (error) {
-                console.error(
-                    "Error al obtener otro cachorro:",
-                    error
-                );
+                imagenPerro.src =
+                    "https://loremflickr.com/400/400/puppy?lock="
+                    + Date.now();
             }
         }
 
