@@ -7,9 +7,7 @@
     <title>Gatitos y Perritos pendejos</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -20,13 +18,8 @@
             transition: background-color 0.4s ease;
         }
 
-        header {
-            padding: 25px 15px;
-        }
-
-        h1 {
-            font-size: 2rem;
-        }
+        header { padding: 25px 15px; }
+        h1 { font-size: 2rem; }
 
         nav {
             display: flex;
@@ -46,9 +39,7 @@
             cursor: pointer;
         }
 
-        nav button.activo {
-            background: #a855f7;
-        }
+        nav button.activo { background: #a855f7; }
 
         .apartado {
             display: none;
@@ -56,9 +47,7 @@
             padding: 25px 15px;
         }
 
-        .apartado.activo {
-            display: block;
-        }
+        .apartado.activo { display: block; }
 
         .tarjeta {
             max-width: 420px;
@@ -89,231 +78,176 @@
             cursor: pointer;
         }
 
-        .boton:hover {
-            background: #9333ea;
-        }
-
-        .boton:disabled {
-            opacity: 0.6;
-            cursor: wait;
-        }
-
-        footer {
-            padding: 20px;
-            color: #aaa;
-        }
+        footer { padding: 20px; color: #aaa; }
     </style>
 </head>
 
 <body>
+<header>
+    <h1>Gatitos y perritos pendejos</h1>
+    <p>Bienvenido we</p>
+</header>
 
-    <header>
-        <h1>Gatitos y Perritos pendejos</h1>
-        <p>Bienvenido we</p>
-    </header>
+<nav>
+    <button class="activo" onclick="mostrar('gatitos', this)">Gatitos</button>
+    <button onclick="mostrar('perritos', this)">Perritos</button>
+</nav>
 
-    <nav>
-        <button class="activo" onclick="mostrar('gatitos', this)">
-            Gatitos
-        </button>
+<main>
+    <section id="gatitos" class="apartado activo">
+        <h2>Gatitos pendejos</h2>
+        <p>Míralos we</p>
 
-        <button onclick="mostrar('perritos', this)">
-            Perritos
-        </button>
-    </nav>
+        <div class="tarjeta">
+            <img id="imagenGato" class="animal" alt="Gatito pequeño">
+            <button class="boton" onclick="otroAnimal('gato')">
+                Otro gatito
+            </button>
+        </div>
+    </section>
 
-    <main>
-        <section id="gatitos" class="apartado activo">
-            <h2>Gatitos pendejos</h2>
-            <p>Miralos we</p>
+    <section id="perritos" class="apartado">
+        <h2>Perritos pendejos</h2>
+        <p>Míralos we</p>
 
-            <div class="tarjeta">
-                <img
-                    id="imagenGato"
-                    class="animal"
-                    src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=400&h=400&q=80"
-                    alt="Gatito"
-                >
+        <div class="tarjeta">
+            <img id="imagenPerro" class="animal" alt="Perrito pequeño">
+            <button class="boton" onclick="otroAnimal('perro')">
+                Otro perrito
+            </button>
+        </div>
+    </section>
+</main>
 
-                <button class="boton" onclick="otroAnimal('gato', this)">
-                    Otro gatito
-                </button>
-            </div>
-        </section>
+<footer>Hecho para los amantes de los animales.</footer>
 
-        <section id="perritos" class="apartado">
-            <h2>Perritos pendejos</h2>
-            <p>Míralos we</p>
+<script>
+const colores = [
+    "#121212", "#1a237e", "#004d40", "#4a148c", "#7f1d1d",
+    "#263238", "#880e4f", "#3e2723", "#0d47a1", "#5d4037"
+];
 
-            <div class="tarjeta">
-                <img
-                    id="imagenPerro"
-                    class="animal"
-                    src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=400&h=400&q=80"
-                    alt="Perrito"
-                >
+const base = "https://images.unsplash.com/";
 
-                <button class="boton" onclick="otroAnimal('perro', this)">
-                    Otro perrito
-                </button>
-            </div>
-        </section>
-    </main>
+const gatitos = [
+    "photo-1573865526739-10659fec78a5",
+    "photo-1514888286974-6c03e2ca1dba",
+    "photo-1533738363-b7f9aef128ce",
+    "photo-1592194996308-7b43878e84a6",
+    "photo-1511044568932-338cba0ad803",
+    "photo-1518791841217-8f162f1e1131",
+    "photo-1495360010541-f48722b34f7d",
+    "photo-1543852786-1cf6624b9987",
+    "photo-1519052537078-e6302a4968d4",
+    "photo-1526336024174-e58f5cdd8e13",
+    "photo-1494253109108-35e9d8c8c31c",
+    "photo-1513360371669-4adf3dd7dff8",
+    "photo-1516979187457-637abb4f9353",
+    "photo-1533743983669-94fa5c4338ec",
+    "photo-1574158622682-e40e69881006",
+    "photo-1548247416-ec66f4900b2e",
+    "photo-1513245543132-31f507417b26",
+    "photo-1529778873920-4da4926a72c2",
+    "photo-1516280030429-27679b3dc9cf",
+    "photo-1524504388940-b1c1722653e1",
+    "photo-1501820488136-72669149e0d4",
+    "photo-1511044568932-338cba0ad803"
+];
 
-    <footer>
-        Hecho para los amantes de los animales.
-    </footer>
+const perritos = [
+    "photo-1552053831-71594a27632d",
+    "photo-1543466835-00a7907e9de1",
+    "photo-1517849845537-4d257902454a",
+    "photo-1551717743-49959800b1f6",
+    "photo-1548199973-03cce0bbc87b",
+    "photo-1518717758536-85ae29035b6d",
+    "photo-1505628346881-b72b27e84530",
+    "photo-1507146426996-ef05306b995a",
+    "photo-1537151608828-ea2b11777ee8",
+    "photo-1544568100-847a948585b9",
+    "photo-1534361960057-19889db9621e",
+    "photo-1583337130417-3346a1be7dee",
+    "photo-1561037404-61cd46aa615b",
+    "photo-1530281700549-e82e7bf110d6",
+    "photo-1516734212186-a967f81ad0d7",
+    "photo-1541599540903-216a46ca1dc0",
+    "photo-1558788353-f76d92427f16",
+    "photo-1518020382113-a7e8fc38eac9",
+    "photo-1514989940723-e8e51635b782",
+    "photo-1548199973-03cce0bbc87b",
+    "photo-1537151608828-ea2b11777ee8",
+    "photo-1543466835-00a7907e9de1"
+];
 
-    <script>
-        const colores = [
-            "#121212",
-            "#1a237e",
-            "#004d40",
-            "#4a148c",
-            "#7f1d1d",
-            "#263238",
-            "#880e4f",
-            "#3e2723",
-            "#0d47a1",
-            "#5d4037"
-        ];
+let ultimoColor = 0;
+const usadas = { gato: [], perro: [] };
 
-        let ultimoColor = 0;
+function urlFoto(id) {
+    return base + id + "?auto=format&fit=crop&w=500&h=500&q=80";
+}
 
-        const imagenesUsadas = {
-            gato: new Set(),
-            perro: new Set()
-        };
+function mostrar(id, boton) {
+    document.querySelectorAll(".apartado").forEach(seccion => {
+        seccion.classList.remove("activo");
+    });
 
-        function mostrar(id, boton) {
-            document.querySelectorAll(".apartado").forEach(seccion => {
-                seccion.classList.remove("activo");
-            });
+    document.getElementById(id).classList.add("activo");
 
-            document.getElementById(id).classList.add("activo");
+    document.querySelectorAll("nav button").forEach(b => {
+        b.classList.remove("activo");
+    });
 
-            document.querySelectorAll("nav button").forEach(b => {
-                b.classList.remove("activo");
-            });
+    boton.classList.add("activo");
+    cambiarColor();
+    window.scrollTo(0, 0);
+}
 
-            boton.classList.add("activo");
-            cambiarColor();
-            window.scrollTo(0, 0);
-        }
+function cambiarColor() {
+    let nuevoColor;
 
-        function cambiarColor() {
-            let nuevoColor;
+    do {
+        nuevoColor = Math.floor(Math.random() * colores.length);
+    } while (nuevoColor === ultimoColor);
 
-            do {
-                nuevoColor = Math.floor(Math.random() * colores.length);
-            } while (nuevoColor === ultimoColor);
+    document.body.style.backgroundColor = colores[nuevoColor];
+    ultimoColor = nuevoColor;
+}
 
-            document.body.style.backgroundColor = colores[nuevoColor];
-            ultimoColor = nuevoColor;
-        }
+function cargarFoto(tipo, inicial = false) {
+    const lista = tipo === "gato" ? gatitos : perritos;
+    const img = document.getElementById(
+        tipo === "gato" ? "imagenGato" : "imagenPerro"
+    );
 
-        async function otroAnimal(tipo, boton) {
-            cambiarColor();
+    if (usadas[tipo].length >= lista.length) {
+        usadas[tipo] = [];
+    }
 
-            const esGato = tipo === "gato";
-            const imagen = document.getElementById(
-                esGato ? "imagenGato" : "imagenPerro"
-            );
+    let disponibles = lista.filter(id => !usadas[tipo].includes(id));
 
-            const categoria = esGato
-                ? "Category:Kittens"
-                : "Category:Puppies";
+    if (!disponibles.length) {
+        usadas[tipo] = [];
+        disponibles = lista.slice();
+    }
 
-            boton.disabled = true;
+    const id = disponibles[Math.floor(Math.random() * disponibles.length)];
+    usadas[tipo].push(id);
 
-            const textoOriginal = boton.textContent;
-            boton.textContent = "Buscando foto...";
+    img.onerror = function() {
+        this.onerror = null;
+        this.alt = "No se pudo cargar la foto. Comprueba tu conexión.";
+    };
 
-            try {
-                const url =
-                    "https://commons.wikimedia.org/w/api.php" +
-                    "?action=query" +
-                    "&generator=categorymembers" +
-                    "&gcmtitle=" + encodeURIComponent(categoria) +
-                    "&gcmtype=file" +
-                    "&gcmnamespace=6" +
-                    "&gcmlimit=100" +
-                    "&prop=imageinfo" +
-                    "&iiprop=url" +
-                    "&iiurlwidth=500" +
-                    "&format=json" +
-                    "&origin=*";
+    img.src = urlFoto(id);
+}
 
-                const respuesta = await fetch(url);
+function otroAnimal(tipo) {
+    cambiarColor();
+    cargarFoto(tipo);
+}
 
-                if (!respuesta.ok) {
-                    throw new Error("No se pudieron cargar las fotos");
-                }
-
-                const datos = await respuesta.json();
-                const paginas = Object.values(datos.query?.pages || {});
-
-                const fotos = paginas
-                    .filter(p => p.imageinfo && p.imageinfo[0])
-                    .map(p => ({
-                        titulo: p.title,
-                        url: p.imageinfo[0].thumburl ||
-                             p.imageinfo[0].url
-                    }))
-                    .filter(f => /\.(jpg|jpeg|png|webp|gif)$/i.test(f.url));
-
-                if (fotos.length === 0) {
-                    throw new Error("No se encontraron fotos");
-                }
-
-                let disponibles = fotos.filter(
-                    foto => !imagenesUsadas[tipo].has(foto.titulo)
-                );
-
-                if (disponibles.length === 0) {
-                    imagenesUsadas[tipo].clear();
-                    disponibles = fotos;
-                }
-
-                const foto =
-                    disponibles[Math.floor(Math.random() * disponibles.length)];
-
-                await new Promise((resolve, reject) => {
-                    const prueba = new Image();
-
-                    prueba.onload = () => resolve();
-                    prueba.onerror = () => reject(
-                        new Error("No se pudo abrir la foto")
-                    );
-
-                    prueba.src = foto.url;
-                });
-
-                imagen.src = foto.url;
-                imagen.alt = esGato ? "Gatito" : "Cachorro";
-                imagenesUsadas[tipo].add(foto.titulo);
-
-            } catch (error) {
-                alert(
-                    "No se pudieron cargar nuevas fotos. " +
-                    "Comprueba tu conexión e inténtalo otra vez."
-                );
-            } finally {
-                boton.disabled = false;
-                boton.textContent = textoOriginal;
-            }
-        }
-
-        window.addEventListener("load", () => {
-            otroAnimal("gato", document.querySelector(
-                "#gatitos .boton"
-            ));
-
-            otroAnimal("perro", document.querySelector(
-                "#perritos .boton"
-            ));
-        });
-    </script>
-
+cargarFoto("gato", true);
+cargarFoto("perro", true);
+</script>
 </body>
 </html>
