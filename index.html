@@ -180,7 +180,7 @@
                 <img
                     id="imagenPerro"
                     class="animal"
-                    src="https://api.sykes.pet/puppy/imgs/puppy191.jpg"
+                    src="https://api.sykes.pet/puppy/imgs/puppy285.jpg"
                     alt="Perrito cachorro">
 
                 <button
@@ -195,16 +195,94 @@
     <script>
         function cambiarColor() {
             const colores = [
+                // Rosas y rojos
                 "#fce7f3",
-                "#dbeafe",
-                "#dcfce7",
-                "#fef3c7",
-                "#ede9fe",
-                "#ffedd5",
-                "#cffafe",
-                "#f3e8ff",
                 "#ffe4e6",
-                "#e0f2fe"
+                "#fecdd3",
+                "#fb7185",
+                "#f43f5e",
+                "#dc2626",
+                "#991b1b",
+
+                // Morados y violetas
+                "#f3e8ff",
+                "#e9d5ff",
+                "#c084fc",
+                "#a855f7",
+                "#7e22ce",
+                "#6d28d9",
+                "#4c1d95",
+
+                // Azules
+                "#dbeafe",
+                "#bfdbfe",
+                "#93c5fd",
+                "#60a5fa",
+                "#2563eb",
+                "#1d4ed8",
+                "#1e3a8a",
+
+                // Cian y turquesa
+                "#cffafe",
+                "#a5f3fc",
+                "#67e8f9",
+                "#22d3ee",
+                "#0891b2",
+                "#0f766e",
+
+                // Verdes
+                "#dcfce7",
+                "#bbf7d0",
+                "#86efac",
+                "#4ade80",
+                "#16a34a",
+                "#15803d",
+                "#14532d",
+
+                // Amarillos y dorados
+                "#fef9c3",
+                "#fef08a",
+                "#fde047",
+                "#facc15",
+                "#eab308",
+                "#ca8a04",
+
+                // Naranjas
+                "#ffedd5",
+                "#fed7aa",
+                "#fdba74",
+                "#fb923c",
+                "#f97316",
+                "#ea580c",
+                "#9a3412",
+
+                // Tonos neutros y especiales
+                "#ffffff",
+                "#f3f4f6",
+                "#d1d5db",
+                "#9ca3af",
+                "#64748b",
+                "#334155",
+                "#1e293b",
+                "#18181b",
+                "#000000",
+
+                // Colores adicionales
+                "#f0fdf4",
+                "#ecfccb",
+                "#d9f99d",
+                "#a3e635",
+                "#84cc16",
+                "#365314",
+                "#fae8ff",
+                "#f5d0fe",
+                "#e879f9",
+                "#d946ef",
+                "#86198f",
+                "#fff7ed",
+                "#fffbeb",
+                "#f5f5dc",
+                "#ffe4b5"
             ];
 
             const colorActual = document.body.style.backgroundColor;
@@ -261,19 +339,28 @@
 
             try {
                 const respuesta = await fetch(
-                    "https://api.sykes.pet/puppy?v=" + Date.now(),
+                    "https://api.sykes.pet/puppy/?v=" + Date.now(),
                     { cache: "no-store" }
                 );
 
                 if (!respuesta.ok) {
-                    throw new Error("No se pudo obtener la imagen");
+                    throw new Error("No se pudo obtener el cachorro");
                 }
 
                 const datos = await respuesta.json();
-                const url = datos.data?.puppy || datos.puppy;
 
-                if (!url) {
-                    throw new Error("La respuesta no contiene una imagen");
+                const url =
+                    datos.puppy ||
+                    datos.data?.puppy ||
+                    datos.image ||
+                    datos.data?.image;
+
+                if (
+                    !url ||
+                    url === "No puppy data available" ||
+                    !url.startsWith("https://")
+                ) {
+                    throw new Error("No hay una imagen de cachorro disponible");
                 }
 
                 const nuevaImagen = new Image();
@@ -282,11 +369,15 @@
                     imagenPerro.src = nuevaImagen.src;
                 };
 
+                nuevaImagen.onerror = function () {
+                    console.error("No se pudo cargar la foto del cachorro");
+                };
+
                 nuevaImagen.src = url;
 
             } catch (error) {
                 console.error(
-                    "No se pudo cargar otro cachorro:",
+                    "Error al obtener otro cachorro:",
                     error
                 );
             }
