@@ -4,250 +4,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Gatitos y Perritos pendejos</title>
 
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
-            background: #121212;
-            color: white;
-            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #fce7f3;
+            color: #333;
             text-align: center;
             transition: background-color 0.4s ease;
         }
 
-        header { padding: 25px 15px; }
-        h1 { font-size: 2rem; }
+        header {
+            padding: 30px 15px 20px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
 
         nav {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 12px;
-            padding: 15px;
-            background: #202020;
+            margin: 10px 15px 25px;
         }
 
-        nav button {
-            padding: 13px 25px;
+        .pestana {
+            padding: 12px 25px;
             border: none;
             border-radius: 12px;
-            background: #333;
-            color: white;
+            background-color: #ffffff;
+            color: #333;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 3px 8px #00000015;
         }
 
-        nav button.activo { background: #a855f7; }
+        .pestana.activa {
+            background-color: #a855f7;
+            color: white;
+        }
 
-        .apartado {
+        main {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 0 18px 35px;
+        }
+
+        .seccion {
             display: none;
-            min-height: 65vh;
-            padding: 25px 15px;
         }
 
-        .apartado.activo { display: block; }
+        .seccion.activa {
+            display: block;
+        }
 
         .tarjeta {
-            max-width: 420px;
-            margin: 25px auto;
             padding: 22px;
-            background: #202020;
+            background-color: white;
             border-radius: 20px;
+            box-shadow: 0 6px 18px #00000015;
+        }
+
+        .tarjeta h2 {
+            margin-top: 0;
         }
 
         .animal {
             display: block;
-            width: 280px;
-            height: 280px;
-            max-width: 100%;
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            margin: 15px auto 20px;
             object-fit: cover;
-            border-radius: 18px;
-            margin: 20px auto;
-            background: #333;
+            border-radius: 16px;
+            background-color: #f3f4f6;
         }
 
-        .boton {
-            padding: 14px 24px;
+        .boton-animal {
+            padding: 13px 24px;
             border: none;
             border-radius: 12px;
-            background: #a855f7;
+            background-color: #a855f7;
             color: white;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
         }
 
-        footer { padding: 20px; color: #aaa; }
+        .boton-animal:hover {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        .boton-animal:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .mensaje {
+            min-height: 20px;
+            margin: 12px 0 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .animal {
+                height: auto;
+                aspect-ratio: 1 / 1;
+            }
+
+            .tarjeta {
+                padding: 16px;
+            }
+        }
     </style>
 </head>
 
 <body>
-<header>
-    <h1>Gatitos y perritos pendejos</h1>
-    <p>Bienvenido we</p>
-</header>
 
-<nav>
-    <button class="activo" onclick="mostrar('gatitos', this)">Gatitos</button>
-    <button onclick="mostrar('perritos', this)">Perritos</button>
-</nav>
+    <header>
+        <h1>Gatitos y perritos pendejos</h1>
+        <p>Bienvenido we</p>
+    </header>
 
-<main>
-    <section id="gatitos" class="apartado activo">
-        <h2>Gatitos pendejos</h2>
-        <p>Míralos we</p>
+    <nav>
+        <button
+            class="pestana activa"
+            id="pestanaGatitos"
+            onclick="mostrarSeccion('gatos')">
+            Gatitos
+        </button>
 
-        <div class="tarjeta">
-            <img id="imagenGato" class="animal" alt="Gatito pequeño">
-            <button class="boton" onclick="otroAnimal('gato')">
-                Otro gatito
-            </button>
-        </div>
-    </section>
+        <button
+            class="pestana"
+            id="pestanaPerritos"
+            onclick="mostrarSeccion('perros')">
+            Perritos
+        </button>
+    </nav>
 
-    <section id="perritos" class="apartado">
-        <h2>Perritos pendejos</h2>
-        <p>Míralos we</p>
+    <main>
 
-        <div class="tarjeta">
-            <img id="imagenPerro" class="animal" alt="Perrito pequeño">
-            <button class="boton" onclick="otroAnimal('perro')">
-                Otro perrito
-            </button>
-        </div>
-    </section>
-</main>
+        <section class="seccion activa" id="seccionGatos">
+            <div class="tarjeta">
+                <h2>Gatitos pendejos 🐱</h2>
 
-<footer>Hecho para los amantes de los animales.</footer>
+                <img
+                    id="imagenGato"
+                    class="animal"
+                    src="https://cataas.com/cat/kitten?width=400&height=400"
+                    alt="Gatito pequeño"
+                    loading="eager">
 
-<script>
-const colores = [
-    "#121212", "#1a237e", "#004d40", "#4a148c", "#7f1d1d",
-    "#263238", "#880e4f", "#3e2723", "#0d47a1", "#5d4037"
-];
+                <button
+                    class="boton-animal"
+                    id="botonGato"
+                    onclick="otroAnimal('gato')">
+                    Otro gatito
+                </button>
 
-const base = "https://images.unsplash.com/";
+                <p class="mensaje" id="mensajeGato"></p>
+            </div>
+        </section>
 
-const gatitos = [
-    "photo-1573865526739-10659fec78a5",
-    "photo-1514888286974-6c03e2ca1dba",
-    "photo-1533738363-b7f9aef128ce",
-    "photo-1592194996308-7b43878e84a6",
-    "photo-1511044568932-338cba0ad803",
-    "photo-1518791841217-8f162f1e1131",
-    "photo-1495360010541-f48722b34f7d",
-    "photo-1543852786-1cf6624b9987",
-    "photo-1519052537078-e6302a4968d4",
-    "photo-1526336024174-e58f5cdd8e13",
-    "photo-1494253109108-35e9d8c8c31c",
-    "photo-1513360371669-4adf3dd7dff8",
-    "photo-1516979187457-637abb4f9353",
-    "photo-1533743983669-94fa5c4338ec",
-    "photo-1574158622682-e40e69881006",
-    "photo-1548247416-ec66f4900b2e",
-    "photo-1513245543132-31f507417b26",
-    "photo-1529778873920-4da4926a72c2",
-    "photo-1516280030429-27679b3dc9cf",
-    "photo-1524504388940-b1c1722653e1",
-    "photo-1501820488136-72669149e0d4",
-    "photo-1511044568932-338cba0ad803"
-];
+        <section class="seccion" id="seccionPerros">
+            <div class="tarjeta">
+                <h2>Perritos pendejos 🐶</h2>
 
-const perritos = [
-    "photo-1552053831-71594a27632d",
-    "photo-1543466835-00a7907e9de1",
-    "photo-1517849845537-4d257902454a",
-    "photo-1551717743-49959800b1f6",
-    "photo-1548199973-03cce0bbc87b",
-    "photo-1518717758536-85ae29035b6d",
-    "photo-1505628346881-b72b27e84530",
-    "photo-1507146426996-ef05306b995a",
-    "photo-1537151608828-ea2b11777ee8",
-    "photo-1544568100-847a948585b9",
-    "photo-1534361960057-19889db9621e",
-    "photo-1583337130417-3346a1be7dee",
-    "photo-1561037404-61cd46aa615b",
-    "photo-1530281700549-e82e7bf110d6",
-    "photo-1516734212186-a967f81ad0d7",
-    "photo-1541599540903-216a46ca1dc0",
-    "photo-1558788353-f76d92427f16",
-    "photo-1518020382113-a7e8fc38eac9",
-    "photo-1514989940723-e8e51635b782",
-    "photo-1548199973-03cce0bbc87b",
-    "photo-1537151608828-ea2b11777ee8",
-    "photo-1543466835-00a7907e9de1"
-];
+                <img
+                    id="imagenPerro"
+                    class="animal"
+                    src="https://api.sykes.pet/puppy/imgs/puppy149.jpg"
+                    alt="Perrito cachorro"
+                    loading="eager">
 
-let ultimoColor = 0;
-const usadas = { gato: [], perro: [] };
+                <button
+                    class="boton-animal"
+                    id="botonPerro"
+                    onclick="otroAnimal('perro')">
+                    Otro perrito
+                </button>
 
-function urlFoto(id) {
-    return base + id + "?auto=format&fit=crop&w=500&h=500&q=80";
-}
+                <p class="mensaje" id="mensajePerro"></p>
+            </div>
+        </section>
 
-function mostrar(id, boton) {
-    document.querySelectorAll(".apartado").forEach(seccion => {
-        seccion.classList.remove("activo");
-    });
+    </main>
 
-    document.getElementById(id).classList.add("activo");
+    <script>
+        // Colores aleatorios para el fondo.
+        function cambiarColor() {
+            const colores = [
+                "#fce7f3",
+                "#dbeafe",
+                "#dcfce7",
+                "#fef3c7",
+                "#ede9fe",
+                "#ffedd5",
+                "#cffafe",
+                "#f3e8ff",
+                "#ffe4e6",
+                "#e0f2fe"
+            ];
 
-    document.querySelectorAll("nav button").forEach(b => {
-        b.classList.remove("activo");
-    });
+            const colorActual = document.body.style.backgroundColor;
+            let nuevoColor;
 
-    boton.classList.add("activo");
-    cambiarColor();
-    window.scrollTo(0, 0);
-}
+            do {
+                nuevoColor =
+                    colores[Math.floor(Math.random() * colores.length)];
+            } while (
+                colores.length > 1 &&
+                nuevoColor === colorActual
+            );
 
-function cambiarColor() {
-    let nuevoColor;
+            document.body.style.backgroundColor = nuevoColor;
+        }
 
-    do {
-        nuevoColor = Math.floor(Math.random() * colores.length);
-    } while (nuevoColor === ultimoColor);
+        // Cambiar entre las pestañas Gatitos y Perritos.
+        function mostrarSeccion(tipo) {
+            cambiarColor();
 
-    document.body.style.backgroundColor = colores[nuevoColor];
-    ultimoColor = nuevoColor;
-}
+            const esGato = tipo === "gatos";
 
-function cargarFoto(tipo, inicial = false) {
-    const lista = tipo === "gato" ? gatitos : perritos;
-    const img = document.getElementById(
-        tipo === "gato" ? "imagenGato" : "imagenPerro"
-    );
+            document.getElementById("seccionGatos")
+                .classList.toggle("activa", esGato);
 
-    if (usadas[tipo].length >= lista.length) {
-        usadas[tipo] = [];
-    }
+            document.getElementById("seccionPerros")
+                .classList.toggle("activa", !esGato);
 
-    let disponibles = lista.filter(id => !usadas[tipo].includes(id));
+            document.getElementById("pestanaGatitos")
+                .classList.toggle("activa", esGato);
 
-    if (!disponibles.length) {
-        usadas[tipo] = [];
-        disponibles = lista.slice();
-    }
+            document.getElementById("pestanaPerritos")
+                .classList.toggle("activa", !esGato);
+        }
 
-    const id = disponibles[Math.floor(Math.random() * disponibles.length)];
-    usadas[tipo].push(id);
+        // Cargar otro gatito usando CATAAS.
+        function otroGatito() {
+            const imagen = document.getElementById("imagenGato");
+            const mensaje = document.getElementById("mensajeGato");
+            const boton = document.getElementById("botonGato");
 
-    img.onerror = function() {
-        this.onerror = null;
-        this.alt = "No se pudo cargar la foto. Comprueba tu conexión.";
-    };
+            cambiarColor();
+            boton.disabled = true;
+            mensaje.textContent = "Buscando otro gatito...";
 
-    img.src = urlFoto(id);
-}
+            const nuevaImagen =
+                "https://cataas.com/cat/kitten?width=400&height=400&v="
+                + Date.now();
 
-function otroAnimal(tipo) {
-    cambiarColor();
-    cargarFoto(tipo);
-}
+            imagen.onload = function () {
+                boton.disabled = false;
+                mensaje.textContent = "";
+            };
 
-cargarFoto("gato", true);
-cargarFoto("perro", true);
-</script>
+            imagen.onerror = function () {
+                boton.disabled = false;
+                mensaje.textContent =
+                    "No se pudo cargar la imagen. Intenta otra vez.";
+            };
+
+            imagen.src = nuevaImagen;
+        }
+
+        // Cargar otro cachorro desde el servicio de Sykes.pet.
+        async function otroPerrito() {
+            const imagen = document.getElementById("imagenPerro");
+            const mensaje = document.getElementById("mensajePerro");
+            const boton = document.getElementById("botonPerro");
+
+            cambiarColor();
+            boton.disabled = true;
+            mensaje.textContent = "Buscando otro cachorrito...";
+
+            try {
+                const respuesta = await fetch(
+                    "https://api.sykes.pet/puppy?v=" + Date.now(),
+                    { cache: "no-store" }
+                );
+
+                if (!respuesta.ok) {
+                    throw new Error("No se pudo consultar el servicio");
+                }
+
+                const datos = await respuesta.json();
+
+                const url =
+                    datos?.data?.puppy ||
+                    datos?.puppy ||
+                    datos?.url;
+
+                if (!url) {
+                    throw new Error("No se encontró una imagen");
+                }
+
+                // Confirmar que la imagen nueva cargó antes de reemplazar
+                // la que ya se está mostrando.
+                const prueba = new Image();
+
+                prueba.onload = function () {
+                    imagen.src = url;
+                    boton.disabled = false;
+                    mensaje.textContent = "";
+                };
+
+                prueba.onerror = function () {
+                    boton.disabled = false;
+                    mensaje.textContent =
+                        "No se pudo cargar el cachorro. Intenta otra vez.";
+                };
+
+                prueba.src = url;
+
+            } catch (error) {
+                boton.disabled = false;
+                mensaje.textContent =
+                    "El servicio de cachorros no respondió. Intenta otra vez.";
+            }
+        }
+
+        // Función que usan los botones de cada animal.
+        function otroAnimal(tipo) {
+            if (tipo === "gato") {
+                otroGatito();
+            } else {
+                otroPerrito();
+            }
+        }
+
+        // Cambiar el fondo al cargar la página.
+        cambiarColor();
+    </script>
+
 </body>
 </html>
