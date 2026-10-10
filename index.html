@@ -261,7 +261,7 @@
 
             try {
                 const respuesta = await fetch(
-                    "https://api.sykes.pet/api/puppy?v=" + Date.now(),
+                    "https://api.sykes.pet/puppy?v=" + Date.now(),
                     { cache: "no-store" }
                 );
 
@@ -270,17 +270,12 @@
                 }
 
                 const datos = await respuesta.json();
-
-                const url =
-                    datos.image ||
-                    datos.data?.image;
+                const url = datos.data?.puppy || datos.puppy;
 
                 if (!url) {
                     throw new Error("La respuesta no contiene una imagen");
                 }
 
-                // La imagen cambia cuando termina de cargarse.
-                // No se muestra ningún mensaje de espera.
                 const nuevaImagen = new Image();
 
                 nuevaImagen.onload = function () {
@@ -290,8 +285,10 @@
                 nuevaImagen.src = url;
 
             } catch (error) {
-                // Si el servicio falla, no se borra la foto actual.
-                console.error("No se pudo cargar otro cachorro:", error);
+                console.error(
+                    "No se pudo cargar otro cachorro:",
+                    error
+                );
             }
         }
 
