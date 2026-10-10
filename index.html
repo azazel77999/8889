@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi rincón de animales</title>
+    <title>Gatitos y Perritos</title>
 
     <style>
         * {
@@ -17,7 +17,7 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            transition: background 0.4s;
+            transition: background-color 0.4s ease;
         }
 
         header {
@@ -31,22 +31,19 @@
         nav {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            padding: 12px;
+            gap: 12px;
+            padding: 15px;
             background: #202020;
-            position: sticky;
-            top: 0;
         }
 
         nav button {
+            padding: 13px 25px;
+            border: none;
+            border-radius: 12px;
             background: #333;
             color: white;
-            border: none;
-            padding: 12px 17px;
-            border-radius: 10px;
+            font-size: 16px;
             cursor: pointer;
-            font-size: 15px;
         }
 
         nav button.activo {
@@ -55,8 +52,8 @@
 
         .apartado {
             display: none;
-            padding: 25px 15px 45px;
             min-height: 65vh;
+            padding: 25px 15px;
         }
 
         .apartado.activo {
@@ -67,38 +64,33 @@
             max-width: 420px;
             margin: 25px auto;
             padding: 22px;
-            border-radius: 20px;
             background: #202020;
+            border-radius: 20px;
         }
 
         .animal {
+            display: block;
             width: 280px;
             height: 280px;
             max-width: 100%;
             object-fit: cover;
             border-radius: 18px;
-            background: #333;
-            display: block;
             margin: 20px auto;
+            background: #333;
         }
 
         .boton {
-            background: #a855f7;
-            color: white;
+            padding: 14px 24px;
             border: none;
             border-radius: 12px;
-            padding: 13px 22px;
-            margin: 8px;
+            background: #a855f7;
+            color: white;
             font-size: 16px;
             cursor: pointer;
         }
 
-        .perros .boton {
+        #perritos .boton {
             background: #e58b45;
-        }
-
-        .color {
-            background: #3478f6;
         }
 
         footer {
@@ -116,11 +108,7 @@
     </header>
 
     <nav>
-        <button class="activo" onclick="mostrar('inicio', this)">
-            Inicio
-        </button>
-
-        <button onclick="mostrar('gatitos', this)">
+        <button class="activo" onclick="mostrar('gatitos', this)">
             Gatitos
         </button>
 
@@ -131,28 +119,9 @@
 
     <main>
 
-        <section id="inicio" class="apartado activo">
-            <h2>Bienvenidos a mi página</h2>
-            <p>Un pequeño rincón para los amantes de los animales.</p>
-
-            <button class="boton" onclick="mostrarDesdeInicio('gatitos')">
-                Ver gatitos
-            </button>
-
-            <button class="boton" onclick="mostrarDesdeInicio('perritos')">
-                Ver perritos
-            </button>
-
-            <br>
-
-            <button class="boton color" onclick="cambiarColor()">
-                Cambiar color de fondo
-            </button>
-        </section>
-
-        <section id="gatitos" class="apartado">
+        <section id="gatitos" class="apartado activo">
             <h2>Gatitos pequeños</h2>
-            <p>¡Mira estas pequeñas bolas de pelo!</p>
+            <p>¡Mira estos pequeños felinos!</p>
 
             <div class="tarjeta">
                 <img
@@ -162,15 +131,15 @@
                     alt="Gatito"
                 >
 
-                <button class="boton" onclick="otroGato()">
+                <button class="boton" onclick="otroAnimal('gato')">
                     Otro gatito
                 </button>
             </div>
         </section>
 
-        <section id="perritos" class="apartado perros">
+        <section id="perritos" class="apartado">
             <h2>Perritos pequeños</h2>
-            <p>¡Los cachorros más adorables!</p>
+            <p>¡Mira estos adorables cachorros!</p>
 
             <div class="tarjeta">
                 <img
@@ -180,7 +149,7 @@
                     alt="Perrito"
                 >
 
-                <button class="boton" onclick="otroPerro()">
+                <button class="boton" onclick="otroAnimal('perro')">
                     Otro perrito
                 </button>
             </div>
@@ -193,6 +162,21 @@
     </footer>
 
     <script>
+        const colores = [
+            "#121212",
+            "#1a237e",
+            "#004d40",
+            "#4a148c",
+            "#7f1d1d",
+            "#263238",
+            "#880e4f",
+            "#3e2723",
+            "#0d47a1",
+            "#5d4037"
+        ];
+
+        let ultimoColor = 0;
+
         function mostrar(id, boton) {
             document.querySelectorAll(".apartado").forEach(seccion => {
                 seccion.classList.remove("activo");
@@ -205,45 +189,34 @@
             });
 
             boton.classList.add("activo");
+
+            cambiarColor();
             window.scrollTo(0, 0);
         }
 
-        function mostrarDesdeInicio(id) {
-            const botones = document.querySelectorAll("nav button");
-            const boton = id === "gatitos" ? botones[1] : botones[2];
-            mostrar(id, boton);
-        }
-
-        function otroGato() {
-            document.getElementById("imagenGato").src =
-                "https://cataas.com/cat?width=400&height=400&v="
-                + Date.now();
-        }
-
-        function otroPerro() {
-            document.getElementById("imagenPerro").src =
-                "https://placedog.net/400/400?random="
-                + Date.now();
-        }
-
-        const colores = [
-            "#121212",
-            "#1a237e",
-            "#004d40",
-            "#4a148c",
-            "#7f1d1d",
-            "#263238",
-            "#880e4f",
-            "#3e2723",
-            "#0d47a1"
-        ];
-
         function cambiarColor() {
-            const color = colores[
-                Math.floor(Math.random() * colores.length)
-            ];
+            let nuevoColor;
 
-            document.body.style.backgroundColor = color;
+            do {
+                nuevoColor = Math.floor(Math.random() * colores.length);
+            } while (nuevoColor === ultimoColor);
+
+            document.body.style.backgroundColor = colores[nuevoColor];
+            ultimoColor = nuevoColor;
+        }
+
+        function otroAnimal(tipo) {
+            cambiarColor();
+
+            if (tipo === "gato") {
+                document.getElementById("imagenGato").src =
+                    "https://cataas.com/cat?width=400&height=400&v="
+                    + Date.now();
+            } else {
+                document.getElementById("imagenPerro").src =
+                    "https://placedog.net/400/400?random="
+                    + Date.now();
+            }
         }
     </script>
 
